@@ -10,6 +10,9 @@ eureka:
     metadataMap:
       instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
     preferIpAddress: true
+spring:
+  rabbitmq:
+    addresses: ${vcap.services.rabbitmq.credentials.url}
 
 ---
 spring:
@@ -18,4 +21,3 @@ eureka:
   instance:
     nonSecurePort: 80
     preferIpAddress: false
-
