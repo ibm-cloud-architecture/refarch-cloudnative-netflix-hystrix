@@ -1,0 +1,24 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 1
+
+image:
+  repository: jkwong/hystrix-dashboard
+  tag: latest
+  pullPolicy: Always
+
+service:
+  name: hystrix-dashboard
+  type: ClusterIP
+  port: 8383
+  internalPort: 8383
+
+config:
+  existingConfigMapName:
+
+spring:
+  cloud:
+    config:
+      enabled: false
+      uri:

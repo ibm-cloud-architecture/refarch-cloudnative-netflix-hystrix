@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  {{ if .Values.service.name }}
+  name: {{ .Values.service.name }}
+  {{ else }}
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-hystrix-dashboard
+  {{ end }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: stream
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.internalPort }}
+  selector:
+    component: hystrix-dashboard
