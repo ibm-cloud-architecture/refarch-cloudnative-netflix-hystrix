@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Spring Hystrix Dashboard
+name: spring-hystrix-dashboard
+version: 1.0.0

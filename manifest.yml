@@ -1,3 +1,0 @@
-applications:
-- name: netflix-hystrix
-  memory: 512M

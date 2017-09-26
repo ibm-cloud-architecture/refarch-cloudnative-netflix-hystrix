@@ -1,0 +1,35 @@
+{{ if .Values.config.existingConfigMapName }}
+{{ else }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-hystrix-dashboard
+  labels:
+    component: hystrix-dashboard
+data:
+  bootstrap.yaml: |+
+    server:
+      port: {{ .Values.service.internalPort }}
+    spring:
+      application:
+        name: hystrix-dashboard
+      cloud:
+        config:
+{{ if .Values.spring.cloud.config.enabled }}
+          enabled: {{ .Values.spring.cloud.config.enabled }}
+          uri: {{ required "A valid value of spring.cloud.config.uri is required!" .Values.spring.cloud.config.uri }}
+{{ else }}
+          enabled: false
+{{ end }}
+  application.yaml: |+
+    spring:
+      rabbitmq:
+        addresses: {{ .Values.rabbitmq.url }}
+        host: {{ .Values.rabbitmq.host }}
+        port: {{ .Values.rabbitmq.port }}
+        username: {{ .Values.rabbitmq.username }}
+        password: {{ .Values.rabbitmq.password }}
+        virtual-host: {{ .Values.rabbitmq.virtualHost }}
+        ssl:
+          enabled: {{ .Values.rabbitmq.sslEnabled }}
+{{ end }}
