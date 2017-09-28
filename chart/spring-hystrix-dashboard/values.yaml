@@ -9,7 +9,7 @@ image:
   pullPolicy: Always
 
 service:
-  name: hystrix-dashboard
+  name: 
   type: ClusterIP
   port: 8383
   internalPort: 8383
@@ -22,3 +22,8 @@ spring:
     config:
       enabled: false
       uri:
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:

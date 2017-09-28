@@ -1,9 +1,11 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-{{  .Chart.Name }}-hystrix-dashboard
+  name: {{ .Release.Name }}-{{  .Chart.Name }}
   labels:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
     component: hystrix-dashboard
 spec:
   replicas:  {{ .Values.replicaCount }}
@@ -29,5 +31,5 @@ spec:
 {{ if .Values.config.existingConfigMapName }}
           name: {{ .Values.config.existingConfigMapName }}
 {{ else }}
-          name: {{ .Release.Name }}-{{ .Chart.Name }}-hystrix-dashboard
+          name: {{ .Release.Name }}-{{ .Chart.Name }}
 {{ end }}
