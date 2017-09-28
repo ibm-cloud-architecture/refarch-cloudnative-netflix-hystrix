@@ -14,7 +14,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - name: stream
+  - name: http
     port: {{ .Values.service.port }}
     targetPort: {{ .Values.service.internalPort }}
   selector:
