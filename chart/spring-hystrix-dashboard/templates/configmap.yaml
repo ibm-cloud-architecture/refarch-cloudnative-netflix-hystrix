@@ -3,8 +3,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-hystrix-dashboard
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
   labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
     component: hystrix-dashboard
 data:
   bootstrap.yaml: |+
@@ -21,15 +24,14 @@ data:
 {{ else }}
           enabled: false
 {{ end }}
-  application.yaml: |+
-    spring:
-      rabbitmq:
-        addresses: {{ .Values.rabbitmq.url }}
-        host: {{ .Values.rabbitmq.host }}
-        port: {{ .Values.rabbitmq.port }}
-        username: {{ .Values.rabbitmq.username }}
-        password: {{ .Values.rabbitmq.password }}
-        virtual-host: {{ .Values.rabbitmq.virtualHost }}
-        ssl:
-          enabled: {{ .Values.rabbitmq.sslEnabled }}
+
+    eureka:
+      client:
+{{ if .Values.eureka.client.serviceUrl.defaultZone }}
+        serviceUrl:
+          defaultZone: {{ .Values.eureka.client.serviceUrl.defaultZone }}
+{{ else }}
+        enabled: false
+{{ end }}
+
 {{ end }}
