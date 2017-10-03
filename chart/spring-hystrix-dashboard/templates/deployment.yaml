@@ -27,9 +27,5 @@ spec:
           name: hystrix-dashboard-config
       volumes:
       - name: hystrix-dashboard-config
-        configMap:
-{{ if .Values.config.existingConfigMapName }}
-          name: {{ .Values.config.existingConfigMapName }}
-{{ else }}
-          name: {{ .Release.Name }}-{{ .Chart.Name }}
-{{ end }}
+{{ include "configServerBootstrap" . }}
+
