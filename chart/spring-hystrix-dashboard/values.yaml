@@ -27,3 +27,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone:
+
+global:
+  useConfigServerBootstrap: false
