@@ -4,7 +4,7 @@ replicaCount: 1
 revisionHistoryLimit: 1
 
 image:
-  repository: jkwong/hystrix-dashboard
+  repository: ibmcase/hystrix-dashboard
   tag: latest
   pullPolicy: Always
 
